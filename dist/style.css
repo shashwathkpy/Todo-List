@@ -1,0 +1,64 @@
+body
+{
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#header
+{
+    border: solid blue;
+    height: 10%;
+}
+
+#footer
+{
+    border: solid blue;
+    height: 10%;
+}
+
+#center
+{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#sidebar
+{
+    border: solid blue;
+    width: 20%;
+}
+
+#content
+{
+    width: 100%;
+    border: solid blue;
+}
+
+.project
+{
+    /* background-color: green; */
+    border: solid black;
+}
+
+.project:hover
+{
+    background-color: yellow;
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+textarea 
+{
+    resize: none;
+}
