@@ -1,5 +1,8 @@
 import createProject from "./project";
-import createTask from "./task";
+import initiateTaskFields from "./task";
+import ProjectList from "./projectList";
+
+let projectList = []
 
 function createHomePage()
 {
@@ -12,10 +15,13 @@ function createHomePage()
 
     // Default Project
     const project = createProject('Chores');
-    project.classList.add('project');
-    project.textContent = 'Chores';
-    project.id = 'Chores';
-    sidebar.appendChild(project);
+    projectList.push(project);
+    ProjectList(projectList);
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project');
+    projectDiv.textContent = project.title;
+    projectDiv.id = project.title;
+    sidebar.appendChild(projectDiv);
     updateProjects();
 
     addProjectInput.addEventListener('keypress', function(e)
@@ -42,10 +48,6 @@ function createHomePage()
     {
         deleteProject();
     })
-
-    // taskBtn();
-
-    
 }
 
 // Checks if new project is not blank or a duplicate name
@@ -67,14 +69,18 @@ function projectCheck(addProjectInput)
     return check;
 }
 
+
 // Creates and adds Project to Sidebar
 function projectAdd(addProjectInput)
 {
     const project = createProject(addProjectInput.value);
-    project.classList.add('project');
-    project.textContent = addProjectInput.value;
-    project.id = addProjectInput.value;
-    sidebar.appendChild(project);
+    projectList.push(project);
+    ProjectList(projectList);
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project');
+    projectDiv.textContent = project.title;
+    projectDiv.id = project.title;
+    sidebar.appendChild(projectDiv);
 }
 
 // Displays Selected Project in Content
@@ -84,16 +90,45 @@ function projectDisplay(clickedID)
     const content = document.querySelector('#content');
     const projects = document.querySelectorAll('.project');
     const projectTitle = document.createElement('h1');
+
     projects.forEach(project => {
         project.style.backgroundColor = '';
+        project.classList.remove('selected');
         if(project.getAttribute('id') == clickedID)
         {
+            projectList = ProjectList("get");
+            console.log(projectList);
+            project.classList.add('selected');
             clear(content);
+            taskBtn();
             projectTitle.textContent = project.id;
             project.style.backgroundColor = selected;
             content.appendChild(projectTitle);
+            taskDisplay();
         }
     });
+}
+
+function taskDisplay()
+{
+    let tasks;
+    const project = document.querySelector('.selected');
+    for(let i = 0; i < projectList.length; i++)
+    {
+        if(projectList[i].title == project.id)
+        {
+            tasks = projectList[i].taskList;
+        }
+    }
+    
+    for(let i = 0; i < tasks.length; i++)
+    {
+        const taskDiv = document.createElement('div');
+        taskDiv.classList.add('taskDiv');
+        taskDiv.textContent = tasks[i].title + " " + tasks[i].description + " " + tasks[i].dueDate + " " + tasks[i].priority;
+        content.appendChild(taskDiv);
+    }
+    
 }
 
 // Gives Projects an onclick function
@@ -101,7 +136,9 @@ function updateProjects()
 {
     const projects = document.querySelectorAll('.project');
     Array.from(projects).forEach(project => {
-        project.onclick = function() { projectDisplay(project.id) };
+        project.onclick = function() {
+             projectDisplay(project.id)
+        };
     });
 }
 
@@ -125,7 +162,6 @@ function clear(content)
     {
         content.removeChild(content.lastElementChild);
     }
-    taskBtn();
 }
 
 function taskBtn()
@@ -137,8 +173,8 @@ function taskBtn()
 
     addTaskBtn.addEventListener('click', function(e)
     {
-        createTask();
-        addTaskBtn.style.display = "none";
+        initiateTaskFields(projectList);
+        addTaskBtn.style.visibility = "hidden";
     })
 }
 

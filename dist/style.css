@@ -6,17 +6,22 @@ body
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: rgb(58, 58, 58);
+    color: white;
+}
+
+#header, #footer, #sidebar, #content
+{
+    border: solid rgb(55, 79, 158);
 }
 
 #header
 {
-    border: solid blue;
     height: 10%;
 }
 
 #footer
 {
-    border: solid blue;
     height: 10%;
 }
 
@@ -29,14 +34,12 @@ body
 
 #sidebar
 {
-    border: solid blue;
     width: 20%;
 }
 
 #content
 {
     width: 100%;
-    border: solid blue;
 }
 
 .project
@@ -50,11 +53,12 @@ body
     background-color: yellow;
 }
 
-form
+fieldset
 {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+    width: 300px;
     gap: 5px;
 }
 

@@ -1,13 +1,14 @@
-function project(title)
+function Project(title, taskList)
 {
     this.title = title;
+    this.taskList = taskList
 }
 
 function createProject(title)
 {
-    const p = document.createElement('div');
-    p.textContent = title;
-    return p;
+    const taskList = [];
+    const project = new Project(title, taskList);
+    return project;
 }
 
 export default createProject;
