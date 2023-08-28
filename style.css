@@ -40,6 +40,8 @@ body
 #content
 {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .project
@@ -65,4 +67,40 @@ fieldset
 textarea 
 {
     resize: none;
+}
+
+.taskDiv
+{
+    display: grid;
+    background-color: rgb(4, 111, 146);
+    grid-template: 50px / repeat(6, 1fr);
+    align-items: center;
+    font-weight: bolder;
+}
+
+.taskDescription
+{
+    padding: 5px;
+    grid-area: 2 / 1 / 2 / 7;
+    background-color: rgb(4, 111, 146);
+}
+
+.deleteTaskBtn:hover
+{
+    cursor: pointer;
+    min-height: 50px;
+    margin-left: -5px;
+    filter: invert(12%) sepia(84%) saturate(4251%) hue-rotate(9deg) brightness(99%) contrast(129%);
+}
+
+.expandBtn
+{
+}
+
+.expandBtn:hover
+{
+    cursor: pointer;
+    min-height: 60px;
+    margin-left: -5px;
+    filter: invert(85%) sepia(100%) saturate(2268%) hue-rotate(3deg) brightness(111%) contrast(101%);
 }
