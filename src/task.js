@@ -1,11 +1,13 @@
 import ProjectList from "./projectList";
+import taskDisplay from "./taskDisplay";
 
-function Task(title, description, dueDate, priority)
+function Task(title, description, dueDate, priority, checked)
 {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
+    this.checked = checked;
 }
 
 //task form
@@ -71,22 +73,32 @@ function initiateTaskFields(projectList)
 
     createBtn.addEventListener('click', function(e)
     {
-        const task = new Task(titleInput.value, descriptionInput.value, dueDateInput.value, prioritySelect.value);
-        createTaskDiv(task);
-        content.removeChild(taskFields);
-
-        const project = document.querySelector('.selected');
-        projectList.forEach(p => {
-            if(p.title == project.id)
-            {
-                p.taskList.push(task);
-            }
-        });
-
-        ProjectList(projectList);
-
-        const addTaskBtn = document.querySelector('#addTaskBtn');
-        addTaskBtn.style.visibility = "visible";
+        if(titleInput.value.length < 1 || titleInput.value.includes('.'))
+        {
+            alert("Task Title Error!");
+        }
+        else
+        {
+            const task = new Task(titleInput.value, descriptionInput.value, dueDateInput.value, prioritySelect.value, false);
+            content.removeChild(taskFields);
+    
+            const project = document.querySelector('.selected');
+            projectList.forEach(p => {
+                if(p.title == project.id)
+                {
+                    p.taskList.push(task);
+                }
+            });
+    
+            ProjectList(projectList);
+            const taskDivs = document.querySelectorAll('.taskDiv');
+            taskDivs.forEach(td => {
+                content.removeChild(td);
+            });
+            taskDisplay();
+            const addTaskBtn = document.querySelector('#addTaskBtn');
+            addTaskBtn.style.visibility = "visible";
+        }
     })
 
     cancelBtn.addEventListener('click', function(e)
@@ -96,12 +108,6 @@ function initiateTaskFields(projectList)
         addTaskBtn.style.visibility = "visible";
     })
 
-    function createTaskDiv(task)
-    {
-        const taskDiv = document.createElement('div');
-        taskDiv.textContent = task.title + " " + task.description + " " + task.dueDate + " " + task.priority;
-        content.appendChild(taskDiv);
-    }
 }
 
 

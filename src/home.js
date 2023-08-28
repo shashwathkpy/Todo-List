@@ -1,6 +1,7 @@
 import createProject from "./project";
 import initiateTaskFields from "./task";
 import ProjectList from "./projectList";
+import taskDisplay from "./taskDisplay";
 
 let projectList = []
 
@@ -100,35 +101,13 @@ function projectDisplay(clickedID)
             console.log(projectList);
             project.classList.add('selected');
             clear(content);
-            taskBtn();
             projectTitle.textContent = project.id;
             project.style.backgroundColor = selected;
             content.appendChild(projectTitle);
+            taskBtn();
             taskDisplay();
         }
     });
-}
-
-function taskDisplay()
-{
-    let tasks;
-    const project = document.querySelector('.selected');
-    for(let i = 0; i < projectList.length; i++)
-    {
-        if(projectList[i].title == project.id)
-        {
-            tasks = projectList[i].taskList;
-        }
-    }
-    
-    for(let i = 0; i < tasks.length; i++)
-    {
-        const taskDiv = document.createElement('div');
-        taskDiv.classList.add('taskDiv');
-        taskDiv.textContent = tasks[i].title + " " + tasks[i].description + " " + tasks[i].dueDate + " " + tasks[i].priority;
-        content.appendChild(taskDiv);
-    }
-    
 }
 
 // Gives Projects an onclick function

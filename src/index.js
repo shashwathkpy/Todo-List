@@ -1,3 +1,3 @@
-import pageLoad from "./pageLoad";
+import createHomePage from "./home";
 
-pageLoad();
+createHomePage();
