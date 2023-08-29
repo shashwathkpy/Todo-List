@@ -1,3 +1,10 @@
+:root 
+{
+    --backgroundGray: rgb(58, 58, 58);
+    --blueBorder: rgb(55, 79, 158);
+    --taskBg: rgb(150, 212, 233);
+}
+
 body
 {
     height: 100vh;
@@ -6,13 +13,15 @@ body
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: rgb(58, 58, 58);
+    background-color: var(--backgroundGray);
     color: white;
+
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #header, #footer, #sidebar, #content
 {
-    border: solid rgb(55, 79, 158);
+    border: solid var(--blueBorder);
 }
 
 #header
@@ -42,6 +51,14 @@ body
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+#contentHeader
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .project
@@ -69,20 +86,55 @@ textarea
     resize: none;
 }
 
+h1
+{
+    font-size: 50px;
+}
+
+#addTaskBtn
+{
+    height: 50px;
+    width: 50px;
+}
+
+
+#addTaskBtn:hover
+{
+    cursor: pointer;
+    filter: invert(100%) sepia(10%) saturate(7465%) hue-rotate(281deg) brightness(117%) contrast(100%);
+    /* rotate: 45deg; */
+}
+
 .taskDiv
 {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--taskBg);
+    width: 100%;
+    position: relative;
+    border: solid rgb(10, 57, 95);
+}
+
+.taskDivTop
+{
+    padding: 10px;
     display: grid;
-    background-color: rgb(4, 111, 146);
-    grid-template: 50px / repeat(6, 1fr);
+    grid-template: 1fr / 1fr 2fr 1fr 1fr 1fr 1fr;
+    /* justify-content: center; */
+    /* text-align: center; */
     align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: var(--taskBg);
+    color: black;
+    font-size: 25px;
     font-weight: bolder;
 }
 
 .taskDescription
 {
-    padding: 5px;
-    grid-area: 2 / 1 / 2 / 7;
-    background-color: rgb(4, 111, 146);
+    padding: 10px;
+    background-color: var(--taskBg);
 }
 
 .deleteTaskBtn:hover
@@ -100,7 +152,12 @@ textarea
 .expandBtn:hover
 {
     cursor: pointer;
-    min-height: 60px;
-    margin-left: -5px;
+    /* min-height: 50px; */
+    /* margin-left: -5px; */
     filter: invert(85%) sepia(100%) saturate(2268%) hue-rotate(3deg) brightness(111%) contrast(101%);
+}
+
+input[type=checkbox] 
+{
+    cursor: pointer;
 }
