@@ -90,6 +90,7 @@ function projectDisplay(clickedID)
     const selected = 'green';
     const content = document.querySelector('#content');
     const projects = document.querySelectorAll('.project');
+    const contentHeader = document.querySelector('#contentHeader');
     const projectTitle = document.createElement('h1');
 
     projects.forEach(project => {
@@ -101,9 +102,11 @@ function projectDisplay(clickedID)
             console.log(projectList);
             project.classList.add('selected');
             clear(content);
+            clear(contentHeader);
             projectTitle.textContent = project.id;
             project.style.backgroundColor = selected;
-            content.appendChild(projectTitle);
+            content.appendChild(contentHeader);
+            contentHeader.appendChild(projectTitle);
             taskBtn();
             taskDisplay();
         }
@@ -145,10 +148,13 @@ function clear(content)
 
 function taskBtn()
 {
-    const addTaskBtn = document.createElement('button');
-    addTaskBtn.textContent = 'Add Task';
+    const addTaskBtn = document.createElement('img');
+    addTaskBtn.src = './images/add.png';
+    // addTaskBtn.textContent = 'Add Task';
     addTaskBtn.id = 'addTaskBtn';
-    content.appendChild(addTaskBtn);
+    addTaskBtn.title = 'Add Task';
+    const contentHeader = document.querySelector('#contentHeader');
+    contentHeader.appendChild(addTaskBtn);
 
     addTaskBtn.addEventListener('click', function(e)
     {

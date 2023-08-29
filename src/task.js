@@ -36,16 +36,16 @@ function initiateTaskFields(projectList)
     priorityLabel.textContent = 'Priority:';
     const prioritySelect = document.createElement('select');
     const low = document.createElement('option');
-    low.textContent = 'Low';
-    low.value = 'Low';
+    low.textContent = 'LOW';
+    low.value = 'LOW';
 
     const medium = document.createElement('option');
-    medium.textContent = 'Medium';
-    medium.value = 'Medium';
+    medium.textContent = 'MEDIUM';
+    medium.value = 'MEDIUM';
 
     const high = document.createElement('option');
-    high.textContent = 'High';
-    high.value = 'High';
+    high.textContent = 'HIGH';
+    high.value = 'HIGH';
 
     prioritySelect.appendChild(low);
     prioritySelect.appendChild(medium);
@@ -75,7 +75,9 @@ function initiateTaskFields(projectList)
     {
         if(titleInput.value.length < 1 || titleInput.value.includes('.'))
         {
-            alert("Task Title Error!");
+            // alert("Task Title Error!");
+            titleInput.placeholder = 'Task Title Error!';
+            descriptionInput.placeholder = 'Task Title Error!';
         }
         else
         {

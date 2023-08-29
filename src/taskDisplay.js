@@ -28,13 +28,13 @@ function taskDisplay()
         taskPriority.textContent = tasks[i].priority;
         switch (taskPriority.textContent)
         {
-            case 'Low':
+            case 'LOW':
                 taskPriority.style.color = 'green';
                 break;
-            case 'Medium':
+            case 'MEDIUM':
                 taskPriority.style.color = 'yellow';
                 break;
-            case 'High':
+            case 'HIGH':
                 taskPriority.style.color = 'red';
                 break;
         }
@@ -42,14 +42,12 @@ function taskDisplay()
         taskChecked.type = 'checkbox';
 
         const deleteTaskBtn = document.createElement('img');
-        // deleteTaskBtn.textContent = 'Delete';
         deleteTaskBtn.style.height = '40px';
         deleteTaskBtn.src = './images/trash.png';
         deleteTaskBtn.classList.add('deleteTaskBtn');
 
         const expandBtn = document.createElement('img');
-        // expandBtn.textContent = 'Expand';
-        expandBtn.style.height = '50px';
+        expandBtn.style.height = '60px';
         expandBtn.src = './images/down.png';
         expandBtn.classList.add('expandBtn');
 
@@ -74,15 +72,17 @@ function taskDisplay()
             toggleExpand(taskDiv.id, taskDescription);
         }
 
-        taskDiv.appendChild(taskChecked);
-        taskDiv.appendChild(taskTitle);
-        //taskDiv.appendChild(taskDescription);
-        taskDiv.appendChild(taskDueDate);
-        taskDiv.appendChild(taskPriority);
-        taskDiv.appendChild(deleteTaskBtn);
-        taskDiv.appendChild(expandBtn);
+        const taskDivTop = document.createElement('div');
+        taskDivTop.classList.add('taskDivTop');
+        taskDivTop.appendChild(taskChecked);
+        taskDivTop.appendChild(taskTitle);
+        taskDivTop.appendChild(taskDueDate);
+        taskDivTop.appendChild(taskPriority);
+        taskDivTop.appendChild(deleteTaskBtn);
+        taskDivTop.appendChild(expandBtn);
 
-        // taskDiv.textContent = tasks[i].title + " " + tasks[i].description + " " + tasks[i].dueDate + " " + tasks[i].priority;
+        taskDiv.appendChild(taskDivTop);
+        // taskDiv.style.height = '60px';
         content.appendChild(taskDiv);
     }
 }
@@ -126,17 +126,18 @@ function toggleExpand(toggledID, taskDescription)
     const expandHeight = "100px";
     const normalHeight = "50px";
     taskDescription.classList.add('taskDescription');
-    if(taskDiv.style.height != expandHeight)
+    if(taskDescription.style.height != expandHeight)
     {
-        taskDiv.style.height = expandHeight;
+        taskDescription.style.height = expandHeight;
+        taskDescription.style.overflow = 'overlay';
         taskDiv.appendChild(taskDescription);
     }
     else
     {
-        taskDiv.style.height = normalHeight;
+        taskDescription.style.height = normalHeight;
+        taskDescription.style.overflow = 'hidden';
         taskDiv.removeChild(taskDescription);
-    }
-        
+    }     
 }
 
 export default taskDisplay;
