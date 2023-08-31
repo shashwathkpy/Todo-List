@@ -13,7 +13,8 @@ function Task(title, description, dueDate, priority, checked)
 //task form
 function initiateTaskFields(projectList)
 {
-    const content = document.querySelector('#content');
+    toggleDim();
+
     const taskFields = document.createElement('fieldset');
 
     const titleLabel = document.createElement('label');
@@ -76,6 +77,7 @@ function initiateTaskFields(projectList)
         if(titleInput.value.length < 1 || titleInput.value.includes('.'))
         {
             // alert("Task Title Error!");
+            titleInput.value = '';
             titleInput.placeholder = 'Task Title Error!';
             descriptionInput.placeholder = 'Task Title Error!';
         }
@@ -101,6 +103,7 @@ function initiateTaskFields(projectList)
             const addTaskBtn = document.querySelector('#addTaskBtn');
             addTaskBtn.style.visibility = "visible";
         }
+        toggleDim();
     })
 
     cancelBtn.addEventListener('click', function(e)
@@ -108,9 +111,33 @@ function initiateTaskFields(projectList)
         content.removeChild(taskFields);
         const addTaskBtn = document.querySelector('#addTaskBtn');
         addTaskBtn.style.visibility = "visible";
+        toggleDim();
     })
 
 }
 
+function toggleDim()
+{
+    const content = document.querySelector('#content');
+    const header = document.querySelector('#header');
+    const sidebar = document.querySelector('#sidebar');
+    const footer = document.querySelector('#footer');
+
+    if(content.style.backgroundColor == 'rgba(0, 0, 0, 0.5)')
+    {
+        content.style.backgroundColor = 'rgb(58, 58, 58)';
+        header.style.backgroundColor = 'rgb(55, 79, 158)';
+        sidebar.style.backgroundColor = 'rgb(100, 100, 100)';
+        footer.style.backgroundColor = 'rgb(55, 79, 158)';
+    }
+    else
+    {
+        content.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        header.style.backgroundColor = 'rgba(0, 0, 100, 0.5)';
+        sidebar.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+        footer.style.backgroundColor = 'rgba(0, 0, 100, 0.5)';
+    }
+
+}
 
 export default initiateTaskFields;
