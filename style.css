@@ -1,7 +1,8 @@
 :root 
 {
     --backgroundGray: rgb(58, 58, 58);
-    --blueBorder: rgb(55, 79, 158);
+    --blue: rgb(55, 79, 158);
+    --lightGray: rgb(100,100,100);
     --taskBg: rgb(150, 212, 233);
 }
 
@@ -17,21 +18,24 @@ body
     color: white;
 
     font-family: 'Courier New', Courier, monospace;
+
 }
 
 #header, #footer, #sidebar, #content
 {
-    border: solid var(--blueBorder);
+    /* border: solid var(--blueBorder); */
 }
 
 #header
 {
     height: 10%;
+    background-color: var(--blue);
 }
 
 #footer
 {
-    height: 10%;
+    height: 5%;
+    background-color: var(--blue);
 }
 
 #center
@@ -44,6 +48,7 @@ body
 #sidebar
 {
     width: 20%;
+    background-color: var(--lightGray);
 }
 
 #content
@@ -79,6 +84,17 @@ fieldset
     /* align-items: center; */
     width: 300px;
     gap: 5px;
+    background-color: var(--backgroundGray);
+    margin-top: 300px;
+    padding: 20px;
+    border: 1px solid #888;
+    /* color: white; */
+    border-radius: 15px;
+
+    box-shadow: 10px 15px 20px black;
+
+    position:fixed;
+
 }
 
 textarea 
