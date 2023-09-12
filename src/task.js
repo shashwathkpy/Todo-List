@@ -76,7 +76,6 @@ function initiateTaskFields(projectList)
     {
         if(titleInput.value.length < 1 || titleInput.value.includes('.'))
         {
-            // alert("Task Title Error!");
             titleInput.value = '';
             titleInput.placeholder = 'Task Title Error!';
             descriptionInput.placeholder = 'Task Title Error!';
@@ -102,8 +101,8 @@ function initiateTaskFields(projectList)
             taskDisplay();
             const addTaskBtn = document.querySelector('#addTaskBtn');
             addTaskBtn.style.visibility = "visible";
+            toggleDim();
         }
-        toggleDim();
     })
 
     cancelBtn.addEventListener('click', function(e)
@@ -137,7 +136,6 @@ function toggleDim()
         sidebar.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
         footer.style.backgroundColor = 'rgba(0, 0, 100, 0.5)';
     }
-
 }
 
 export default initiateTaskFields;

@@ -3,16 +3,64 @@ import initiateTaskFields from "./task";
 import ProjectList from "./projectList";
 import taskDisplay from "./taskDisplay";
 
-let projectList = []
+let projectList = [];
+let isSelected = false;
 
 function createHomePage()
 {
     const sidebar = document.querySelector('#sidebar');
     const content = document.querySelector('#content');
+
+    const projectHeader = document.createElement('div');
+    projectHeader.id = 'projectHeader';
+    const projectText = document.createElement('h2');
+    projectText.textContent = "Projects";
+    const addProjectBtn = document.createElement('img');
+    addProjectBtn.src = './images/add.png';
+    addProjectBtn.id = 'addProjectBtn';
+    projectHeader.appendChild(projectText);
+    projectHeader.appendChild(addProjectBtn);
+    sidebar.appendChild(projectHeader);
+
+    const projectSubHeader = document.createElement('div');
+    projectSubHeader.id = 'projectSubHeader';
     const addProjectInput = document.createElement('input');
+    addProjectInput.id = 'addProjectInput';
     addProjectInput.type = 'text';
     addProjectInput.placeholder = 'Add Project';
-    sidebar.appendChild(addProjectInput);
+    projectSubHeader.appendChild(addProjectInput);
+
+    const deleteProjectBtn = document.createElement('img');
+    deleteProjectBtn.src = './images/trash.png';
+    deleteProjectBtn.style.width = '50px';
+    deleteProjectBtn.id = 'deleteProjectBtn';
+    deleteProjectBtn.textContent = 'Delete';
+    projectSubHeader.appendChild(deleteProjectBtn);
+
+    deleteProjectBtn.addEventListener('click', function(e)
+    {
+        deleteProject();
+    })
+
+    deleteProjectBtn.onmouseenter = function()
+    {
+        if(isSelected)
+        {
+            const selected = document.querySelector('.selected');
+            selected.style.backgroundColor = 'darkred';
+        }
+    };
+
+    deleteProjectBtn.onmouseleave = function()
+    {
+        if(isSelected)
+        {
+            const selected = document.querySelector('.selected');
+            selected.style.backgroundColor = 'green';
+        }
+    };
+
+    sidebar.appendChild(projectSubHeader);
 
     // Default Project
     const project = createProject('Chores');
@@ -25,8 +73,21 @@ function createHomePage()
     sidebar.appendChild(projectDiv);
     updateProjects();
 
+    addProjectBtn.addEventListener('click', function(e)
+    {
+        if(projectCheck(addProjectInput))
+        {
+            projectAdd(addProjectInput);
+            updateProjects();
+            addProjectInput.value = '';
+        }
+        sidebar.removeChild(deleteProjectBtn);
+        sidebar.appendChild(deleteProjectBtn);
+    })
+
     addProjectInput.addEventListener('keypress', function(e)
     {
+        addProjectInput.placeholder = 'Add Project';
         if(e.key == 'Enter')
         {
             e.preventDefault();
@@ -40,16 +101,8 @@ function createHomePage()
             sidebar.appendChild(deleteProjectBtn);
         }
     })
-
-    const deleteProjectBtn = document.createElement('button');
-    deleteProjectBtn.textContent = 'Delete';
-    sidebar.appendChild(deleteProjectBtn);
-
-    deleteProjectBtn.addEventListener('click', function(e)
-    {
-        deleteProject();
-    })
 }
+
 
 // Checks if new project is not blank or a duplicate name
 function projectCheck(addProjectInput)
@@ -63,7 +116,8 @@ function projectCheck(addProjectInput)
         }
         if(addProjectInput.value == project.textContent)
         {
-            alert("A project with that name already exists!");
+            addProjectInput.value = '';
+            addProjectInput.placeholder = 'A project with that name already exists!';
             check = false;
         }
     });
@@ -90,23 +144,28 @@ function projectDisplay(clickedID)
     const selected = 'green';
     const content = document.querySelector('#content');
     const projects = document.querySelectorAll('.project');
-    const contentHeader = document.querySelector('#contentHeader');
+    const contentHeader = document.createElement('div');
+    contentHeader.id = 'contentHeader';
     const projectTitle = document.createElement('h1');
+
+    clear(content);
+    clear(contentHeader);
+    isSelected = false;
 
     projects.forEach(project => {
         project.style.backgroundColor = '';
         project.classList.remove('selected');
+        
         if(project.getAttribute('id') == clickedID)
         {
             projectList = ProjectList("get");
-            console.log(projectList);
             project.classList.add('selected');
-            clear(content);
-            clear(contentHeader);
+            isSelected = true;
+
             projectTitle.textContent = project.id;
             project.style.backgroundColor = selected;
-            content.appendChild(contentHeader);
             contentHeader.appendChild(projectTitle);
+            content.appendChild(contentHeader);
             taskBtn();
             taskDisplay();
         }
@@ -128,22 +187,33 @@ function updateProjects()
 function deleteProject()
 {
     const projects = document.querySelectorAll('.project');
-    projects.forEach(project => {
-        if(project.style.backgroundColor != '')
+    for(let i = 0; i < projects.length; i++)
+    {
+        if(projects[i].style.backgroundColor != '')
         {
-            sidebar.removeChild(project);
+            sidebar.removeChild(projects[i]);
+            projectList.splice(i, 1);
             clear(content);
         }
-    });
+    }
+    ProjectList(projectList);
 }
 
 // Clears a div
-function clear(content)
+function clear(section)
 {
-    while(content.lastElementChild)
-    {
-        content.removeChild(content.lastElementChild);
-    }
+    section.innerHTML = "";
+    // while(section.lastElementChild)
+    // {
+    //     section.removeChild(section.lastElementChild);
+        // console.log(section.lastElementChild);
+    // }
+
+    // const parent = document.getElementById(parentID);
+    // const nodes = parent.childNodes;
+    // nodes.forEach(n => {
+    //     parent.removeChild(n);
+    // });
 }
 
 function taskBtn()

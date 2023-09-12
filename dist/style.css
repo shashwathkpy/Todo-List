@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@600&display=swap');
+
 :root 
 {
     --backgroundGray: rgb(58, 58, 58);
     --blue: rgb(55, 79, 158);
     --lightGray: rgb(100,100,100);
-    --taskBg: rgb(150, 212, 233);
+    --taskBg: rgb(128, 151, 255);
 }
 
 body
@@ -17,7 +19,7 @@ body
     background-color: var(--backgroundGray);
     color: white;
 
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Hepta Slab', serif;
 
 }
 
@@ -30,6 +32,9 @@ body
 {
     height: 10%;
     background-color: var(--blue);
+    font-size: 500%;
+    overflow: hidden;
+    text-align: center;
 }
 
 #footer
@@ -47,8 +52,14 @@ body
 
 #sidebar
 {
-    width: 20%;
+    min-width: 20%;
+    max-width: 20%;
     background-color: var(--lightGray);
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    /* gap: 5px; */
+    font-size: 20px;
 }
 
 #content
@@ -66,35 +77,80 @@ body
     gap: 10px;
 }
 
+#projectHeader
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#addProjectBtn
+{
+    height: 40px;
+    width: 40px;
+}
+
+#addProjectBtn:hover
+{
+    cursor: pointer;
+    filter: invert(100%) sepia(10%) saturate(7465%) hue-rotate(281deg) brightness(117%) contrast(100%);
+}
+
+#projectSubHeader
+{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
+}
+
+
+#addProjectInput
+{
+    padding: 2%;
+    flex-grow: 1;
+}
+
+#deleteProjectBtn:hover
+{
+    filter: invert(11%) sepia(84%) saturate(3852%) hue-rotate(359deg) brightness(86%) contrast(120%);
+    cursor: pointer;
+}
+
 .project
 {
-    /* background-color: green; */
-    border: solid black;
+    border: solid var(--backgroundGray);
+    overflow: overlay;
+    padding: 3%;
+    border-radius: 5px;
 }
 
 .project:hover
 {
     background-color: yellow;
+    color: black;
+    cursor: pointer;
+}
+
+.selected:hover
+{
+    color: white;
 }
 
 fieldset
 {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     width: 300px;
     gap: 5px;
     background-color: var(--backgroundGray);
-    margin-top: 300px;
+    margin-top: 150px;
     padding: 20px;
     border: 1px solid #888;
-    /* color: white; */
     border-radius: 15px;
-
     box-shadow: 10px 15px 20px black;
-
     position:fixed;
-
 }
 
 textarea 
@@ -128,7 +184,7 @@ h1
     background-color: var(--taskBg);
     width: 100%;
     position: relative;
-    border: solid rgb(10, 57, 95);
+    /* border: solid rgb(10, 57, 95); */
 }
 
 .taskDivTop

@@ -5,6 +5,7 @@ function taskDisplay()
     let tasks;
     const project = document.querySelector('.selected');
     const projectList = ProjectList("get");
+
     for(let i = 0; i < projectList.length; i++)
     {
         if(projectList[i].title == project.id)
