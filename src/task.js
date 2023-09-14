@@ -76,8 +76,6 @@ function initiateTaskFields(projectList)
     taskFields.appendChild(dueDateInput);
     taskFields.appendChild(priorityLabel);
     taskFields.appendChild(prioritySelect);
-    // taskFields.appendChild(createBtn);
-    // taskFields.appendChild(cancelBtn);
     taskFields.appendChild(taskFieldsButtonsDiv);
 
     content.appendChild(taskFields);

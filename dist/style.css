@@ -77,7 +77,7 @@ a
     display: flex;
     flex-direction: column;
     padding: 1%;
-    /* gap: 5px; */
+    gap: 5px;
     font-size: 20px;
 }
 
@@ -87,6 +87,8 @@ a
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
+
 }
 
 #contentHeader
@@ -94,6 +96,15 @@ a
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+#contentBackgroundImage
+{
+    rotate: 45deg;
+    position: absolute;
+    bottom: 15%;
+    width: 30%;
+    opacity: 40%;
 }
 
 #projectHeader
@@ -223,8 +234,14 @@ h1
     display: flex;
     flex-direction: column;
     background-color: var(--taskBg);
-    width: 100%;
+    width: 75%;
     position: relative;
+
+    padding: 1.33%;
+    border-radius: 50px;
+    border: solid var(--blue);
+    margin-top: 0.33%;
+    opacity: 75%;
 }
 
 .taskDivTop

@@ -9,6 +9,9 @@ let isSelected = false;
 function createHomePage()
 {
     const sidebar = document.querySelector('#sidebar');
+    const content = document.querySelector('#content');
+
+    loadBackgroundImage();
 
     const projectHeader = document.createElement('div');
     projectHeader.id = 'projectHeader';
@@ -126,6 +129,14 @@ function buildFromStorage()
 
 }
 
+function loadBackgroundImage()
+{
+    const backgroundImage = document.createElement('img');
+    backgroundImage.src = './images/notepad.png';
+    backgroundImage.id = 'contentBackgroundImage';
+    content.appendChild(backgroundImage);
+}
+
 
 // Checks if new project is not blank or a duplicate name
 function projectCheck(addProjectInput)
@@ -176,6 +187,7 @@ function projectDisplay(clickedID)
 
     clear(content);
     clear(contentHeader);
+    loadBackgroundImage();
     isSelected = false;
 
     projects.forEach(project => {
@@ -225,6 +237,7 @@ function deleteProject()
     ProjectList(projectList);
     localStorage.setItem("projectList", JSON.stringify(projectList));
     isSelected = false;
+    loadBackgroundImage();
 }
 
 // Clears a div
