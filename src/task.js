@@ -1,6 +1,7 @@
 import ProjectList from "./projectList";
 import taskDisplay from "./taskDisplay";
 
+
 function Task(title, description, dueDate, priority, checked)
 {
     this.title = title;
@@ -52,12 +53,20 @@ function initiateTaskFields(projectList)
     prioritySelect.appendChild(medium);
     prioritySelect.appendChild(high);
 
-
-    const createBtn = document.createElement('button');
+    const taskFieldsButtonsDiv = document.createElement('div');
+    taskFieldsButtonsDiv.id = 'taskFieldsButtonsDiv';
+    const createBtn = document.createElement('img');
+    createBtn.src = './images/check.svg';
     createBtn.textContent = 'Create';
+    createBtn.id = 'createTaskBtn';
 
-    const cancelBtn = document.createElement('button');
+    const cancelBtn = document.createElement('img');
+    cancelBtn.src = './images/close.svg';
     cancelBtn.textContent = 'Cancel';
+    cancelBtn.id = 'cancelTaskBtn';
+
+    taskFieldsButtonsDiv.appendChild(createBtn);
+    taskFieldsButtonsDiv.appendChild(cancelBtn);
 
     taskFields.appendChild(titleLabel);
     taskFields.appendChild(titleInput);
@@ -67,8 +76,9 @@ function initiateTaskFields(projectList)
     taskFields.appendChild(dueDateInput);
     taskFields.appendChild(priorityLabel);
     taskFields.appendChild(prioritySelect);
-    taskFields.appendChild(createBtn);
-    taskFields.appendChild(cancelBtn);
+    // taskFields.appendChild(createBtn);
+    // taskFields.appendChild(cancelBtn);
+    taskFields.appendChild(taskFieldsButtonsDiv);
 
     content.appendChild(taskFields);
 
@@ -94,6 +104,7 @@ function initiateTaskFields(projectList)
             });
     
             ProjectList(projectList);
+            localStorage.setItem("projectList", JSON.stringify(projectList));
             const taskDivs = document.querySelectorAll('.taskDiv');
             taskDivs.forEach(td => {
                 content.removeChild(td);
@@ -121,7 +132,7 @@ function toggleDim()
     const header = document.querySelector('#header');
     const sidebar = document.querySelector('#sidebar');
     const footer = document.querySelector('#footer');
-
+    
     if(content.style.backgroundColor == 'rgba(0, 0, 0, 0.5)')
     {
         content.style.backgroundColor = 'rgb(58, 58, 58)';

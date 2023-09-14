@@ -46,11 +46,13 @@ function taskDisplay()
         deleteTaskBtn.style.height = '40px';
         deleteTaskBtn.src = './images/trash.png';
         deleteTaskBtn.classList.add('deleteTaskBtn');
+        deleteTaskBtn.title = 'Delete Task';
 
         const expandBtn = document.createElement('img');
         expandBtn.style.height = '60px';
         expandBtn.src = './images/down.png';
         expandBtn.classList.add('expandBtn');
+        expandBtn.title = 'Toggle Description';
 
         if(tasks[i].checked)
         {
@@ -83,14 +85,12 @@ function taskDisplay()
         taskDivTop.appendChild(expandBtn);
 
         taskDiv.appendChild(taskDivTop);
-        // taskDiv.style.height = '60px';
         content.appendChild(taskDiv);
     }
 }
 
 function toggleTask(toggledID, checked)
 {
-    console.log(toggledID);
     const taskDiv = document.getElementById(toggledID);
     if(checked)
     {
@@ -100,13 +100,15 @@ function toggleTask(toggledID, checked)
     {
         taskDiv.style.textDecoration = 'none';
     }
+    localStorage.setItem("projectList", JSON.stringify(ProjectList("get")));
 }
 
 function deleteTask(clickedID)
 {
-    const taskDiv = document.getElementById(clickedID);
+    const taskDivs = document.getElementsByClassName('taskDiv');
     const title = clickedID.split('.')[0];
     const projectList = ProjectList("get");
+
     for(let i = 0; i < projectList.length; i++)
     {
         for(let j = 0; j < projectList[i].taskList.length; j++)
@@ -118,7 +120,13 @@ function deleteTask(clickedID)
         }
     }
     ProjectList(projectList);
-    content.removeChild(taskDiv);
+    localStorage.setItem("projectList", JSON.stringify(projectList));
+    
+    while(taskDivs.length > 0)
+    {
+        taskDivs[0].parentNode.removeChild(taskDivs[0]);
+    }
+    taskDisplay();
 }
 
 function toggleExpand(toggledID, taskDescription)

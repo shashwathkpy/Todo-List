@@ -9,7 +9,6 @@ let isSelected = false;
 function createHomePage()
 {
     const sidebar = document.querySelector('#sidebar');
-    const content = document.querySelector('#content');
 
     const projectHeader = document.createElement('div');
     projectHeader.id = 'projectHeader';
@@ -18,6 +17,7 @@ function createHomePage()
     const addProjectBtn = document.createElement('img');
     addProjectBtn.src = './images/add.png';
     addProjectBtn.id = 'addProjectBtn';
+    addProjectBtn.title = 'Add Project';
     projectHeader.appendChild(projectText);
     projectHeader.appendChild(addProjectBtn);
     sidebar.appendChild(projectHeader);
@@ -35,6 +35,7 @@ function createHomePage()
     deleteProjectBtn.style.width = '50px';
     deleteProjectBtn.id = 'deleteProjectBtn';
     deleteProjectBtn.textContent = 'Delete';
+    deleteProjectBtn.title = 'Delete Project';
     projectSubHeader.appendChild(deleteProjectBtn);
 
     deleteProjectBtn.addEventListener('click', function(e)
@@ -63,26 +64,22 @@ function createHomePage()
     sidebar.appendChild(projectSubHeader);
 
     // Default Project
-    const project = createProject('Chores');
-    projectList.push(project);
-    ProjectList(projectList);
-    const projectDiv = document.createElement('div');
-    projectDiv.classList.add('project');
-    projectDiv.textContent = project.title;
-    projectDiv.id = project.title;
-    sidebar.appendChild(projectDiv);
-    updateProjects();
+    buildFromStorage();
 
+    if(projectList.length == 0)
+    {
+        projectAdd('Chores');
+        projectAdd('Work');
+    }
+    
     addProjectBtn.addEventListener('click', function(e)
     {
         if(projectCheck(addProjectInput))
         {
-            projectAdd(addProjectInput);
+            projectAdd(addProjectInput.value);
             updateProjects();
             addProjectInput.value = '';
         }
-        sidebar.removeChild(deleteProjectBtn);
-        sidebar.appendChild(deleteProjectBtn);
     })
 
     addProjectInput.addEventListener('keypress', function(e)
@@ -93,14 +90,40 @@ function createHomePage()
             e.preventDefault();
             if(projectCheck(addProjectInput))
             {
-                projectAdd(addProjectInput);
+                projectAdd(addProjectInput.value);
                 updateProjects();
                 addProjectInput.value = '';
             }
-            sidebar.removeChild(deleteProjectBtn);
-            sidebar.appendChild(deleteProjectBtn);
         }
     })
+
+    const footer = document.querySelector('#footer');
+    const githubLink = document.createElement('a');
+    githubLink.id = 'githubLink';
+    githubLink.textContent = 'shashwathkpy';
+    githubLink.href = 'https://github.com/shashwathkpy/Todo-List';
+    githubLink.target = '_blank';
+    const githubIcon = document.createElement('img');
+    githubIcon.src = './images/github_icon.png';
+    githubIcon.id = 'githubIcon';
+    githubLink.appendChild(githubIcon);
+    footer.appendChild(githubLink);
+}
+
+function buildFromStorage()
+{
+    let projectListStorage = JSON.parse(localStorage.getItem("projectList"));
+
+    if(projectListStorage)
+    {
+        for(let i = 0; i < projectListStorage.length; i++)
+        {
+            projectAdd(projectListStorage[i].title);
+        }
+    
+        ProjectList(projectListStorage);
+    }
+
 }
 
 
@@ -108,12 +131,12 @@ function createHomePage()
 function projectCheck(addProjectInput)
 {
     let check = true;
+    if(!addProjectInput.value)
+    {
+        check = false;
+    }
     const projects = document.querySelectorAll('.project');
     Array.from(projects).forEach(project => {
-        if(addProjectInput.value == '')
-        {
-            check = false;
-        }
         if(addProjectInput.value == project.textContent)
         {
             addProjectInput.value = '';
@@ -126,16 +149,19 @@ function projectCheck(addProjectInput)
 
 
 // Creates and adds Project to Sidebar
-function projectAdd(addProjectInput)
+function projectAdd(value)
 {
-    const project = createProject(addProjectInput.value);
+    const project = createProject(value);
     projectList.push(project);
     ProjectList(projectList);
+    localStorage.setItem("projectList", JSON.stringify(projectList));
+
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
     projectDiv.textContent = project.title;
     projectDiv.id = project.title;
     sidebar.appendChild(projectDiv);
+    updateProjects();
 }
 
 // Displays Selected Project in Content
@@ -197,30 +223,33 @@ function deleteProject()
         }
     }
     ProjectList(projectList);
+    localStorage.setItem("projectList", JSON.stringify(projectList));
+    isSelected = false;
 }
 
 // Clears a div
 function clear(section)
 {
     section.innerHTML = "";
-    // while(section.lastElementChild)
-    // {
-    //     section.removeChild(section.lastElementChild);
-        // console.log(section.lastElementChild);
-    // }
 
-    // const parent = document.getElementById(parentID);
-    // const nodes = parent.childNodes;
-    // nodes.forEach(n => {
-    //     parent.removeChild(n);
-    // });
+    const content = document.querySelector('#content');
+    const header = document.querySelector('#header');
+    const sidebar = document.querySelector('#sidebar');
+    const footer = document.querySelector('#footer');
+
+    if(content.style.backgroundColor = 'rgba(0, 0, 0, 0.5)')
+    {
+        content.style.backgroundColor = 'rgb(58, 58, 58)';
+        header.style.backgroundColor = 'rgb(55, 79, 158)';
+        sidebar.style.backgroundColor = 'rgb(100, 100, 100)';
+        footer.style.backgroundColor = 'rgb(55, 79, 158)';
+    }
 }
 
 function taskBtn()
 {
     const addTaskBtn = document.createElement('img');
     addTaskBtn.src = './images/add.png';
-    // addTaskBtn.textContent = 'Add Task';
     addTaskBtn.id = 'addTaskBtn';
     addTaskBtn.title = 'Add Task';
     const contentHeader = document.querySelector('#contentHeader');

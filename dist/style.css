@@ -19,13 +19,19 @@ body
     background-color: var(--backgroundGray);
     color: white;
 
+}
+
+body, input, select, textarea
+{
     font-family: 'Hepta Slab', serif;
 
 }
 
-#header, #footer, #sidebar, #content
+#header, #footer, a
 {
-    /* border: solid var(--blueBorder); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #header
@@ -34,13 +40,26 @@ body
     background-color: var(--blue);
     font-size: 500%;
     overflow: hidden;
-    text-align: center;
 }
 
 #footer
 {
     height: 5%;
     background-color: var(--blue);
+    overflow: hidden;
+}
+
+a
+{
+    font-size: 150%;
+    text-decoration: none;
+}
+
+#githubIcon
+{
+    mix-blend-mode: multiply;
+    width: 50px;
+    height: 50px;
 }
 
 #center
@@ -83,6 +102,7 @@ body
     justify-content: center;
     align-items: center;
     gap: 10px;
+    overflow: hidden;
 }
 
 #addProjectBtn
@@ -100,9 +120,9 @@ body
 #projectSubHeader
 {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     gap: 10px;
+    overflow: hidden;
 }
 
 
@@ -112,7 +132,7 @@ body
     flex-grow: 1;
 }
 
-#deleteProjectBtn:hover
+#deleteProjectBtn:hover, #cancelTaskBtn:hover
 {
     filter: invert(11%) sepia(84%) saturate(3852%) hue-rotate(359deg) brightness(86%) contrast(120%);
     cursor: pointer;
@@ -153,6 +173,28 @@ fieldset
     position:fixed;
 }
 
+#taskFieldsButtonsDiv
+{
+    padding: 10px;
+    margin-bottom: -15px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#createTaskBtn:hover
+{
+    filter: invert(20%) sepia(85%) saturate(4984%) hue-rotate(110deg) brightness(96%) contrast(106%);
+    cursor: pointer;
+}
+
+#createTaskBtn, #cancelTaskBtn
+{
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(317deg) brightness(116%) contrast(115%);
+    /* border: solid black; */
+    border-radius: 100px;
+    width: 40px;
+}
+
 textarea 
 {
     resize: none;
@@ -174,7 +216,6 @@ h1
 {
     cursor: pointer;
     filter: invert(100%) sepia(10%) saturate(7465%) hue-rotate(281deg) brightness(117%) contrast(100%);
-    /* rotate: 45deg; */
 }
 
 .taskDiv
@@ -184,7 +225,6 @@ h1
     background-color: var(--taskBg);
     width: 100%;
     position: relative;
-    /* border: solid rgb(10, 57, 95); */
 }
 
 .taskDivTop
@@ -192,8 +232,6 @@ h1
     padding: 10px;
     display: grid;
     grid-template: 1fr / 1fr 2fr 1fr 1fr 1fr 1fr;
-    /* justify-content: center; */
-    /* text-align: center; */
     align-items: center;
     position: sticky;
     top: 0;
@@ -217,15 +255,9 @@ h1
     filter: invert(12%) sepia(84%) saturate(4251%) hue-rotate(9deg) brightness(99%) contrast(129%);
 }
 
-.expandBtn
-{
-}
-
 .expandBtn:hover
 {
     cursor: pointer;
-    /* min-height: 50px; */
-    /* margin-left: -5px; */
     filter: invert(85%) sepia(100%) saturate(2268%) hue-rotate(3deg) brightness(111%) contrast(101%);
 }
 
